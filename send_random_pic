@@ -2,7 +2,7 @@ import os
 import random
 import requests
 
-IMAGE_DIR = "pics"
+IMAGE_DIR = "Loli Pics"
 WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK")
 
 def get_random_image():
