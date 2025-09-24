@@ -1,0 +1,22 @@
+import os
+import random
+import requests
+
+IMAGE_DIR = "pics"
+WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK")
+
+def get_random_image():
+    files = [f for f in os.listdir(IMAGE_DIR) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'))]
+    if not files:
+        raise Exception("No images found in directory!")
+    return os.path.join(IMAGE_DIR, random.choice(files))
+
+def send_image(image_path):
+    with open(image_path, "rb") as file:
+        files = {"file": (os.path.basename(image_path), file)}
+        response = requests.post(WEBHOOK_URL, files=files)
+    response.raise_for_status()
+
+if __name__ == "__main__":
+    img_path = get_random_image()
+    send_image(img_path)
